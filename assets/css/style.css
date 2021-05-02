@@ -108,3 +108,7 @@ body {
     margin-top: 15px;
     text-decoration: line-through;
 }
+
+.hideElement {
+    display: none;
+}
