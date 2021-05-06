@@ -7,12 +7,6 @@ $(document).ready(function() {
     const templateCards = document.getElementById("template-cards").content;
     const fragment = document.createDocumentFragment();
 
-    $("form").keypress(function(e) {
-        if (e.which == 13) {
-            return false;
-        }
-    });
-
     // Controla la opción de ocultar el sidebar - alternativo
     $('#sidebarCollapse').click(function() {
         $('#sidebar, #content').toggleClass('active');
@@ -31,6 +25,17 @@ $(document).ready(function() {
         }
     });
 
+    $("#formSearch").keypress(function(e) {
+        if (e.which == 13) {
+            let key = $('#inputProduct').val()
+            if (!key) {
+                alert('Ingrese caracteres para ejecutar busqueda')
+            } else {
+                fetchProducts({ keyword: key })
+            }
+        }
+    });
+
     // Formatea los numeros a pesos
     const formatterPeso = new Intl.NumberFormat('es-CO', {
         style: 'currency',
@@ -43,9 +48,11 @@ $(document).ready(function() {
         try {
             const res = await fetch('https://carrera-bsale-api.herokuapp.com/category.php')
             const data = await res.json()
+
             insertCategory(data);
             //Bloque a la "escucha" de un click para activar la función de busqueda de productos por categoria
             $('.sidebar_a').click(function() {
+                document.getElementById('formSearch').reset()
                 let id = $(this).attr('id')
                 id = id.substr(3)
                 fetchProducts({ id: id })
@@ -69,7 +76,7 @@ $(document).ready(function() {
             const res = await fetch(url)
             const data = await res.json()
             insertProducts(data);
-            document.getElementById('formSearch').reset()
+            //document.getElementById('formSearch').reset()
         } catch (error) {
             alert("No hay productos asociado a la busqueda")
             console.log(error)

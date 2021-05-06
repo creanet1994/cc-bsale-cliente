@@ -25,12 +25,12 @@
                 <a class="navbar-brand float-start" href="#">
                     <h3 id="logo">Bsale Test</h3>
                 </a>
-                <form id="formSearch" class="d-flex">
+                <div id="formSearch" class="d-flex">
                     <input id="inputProduct" class="form-control me-2" type="Buscar" placeholder="Buscar" aria-label="Buscar">
                     <a id="btnProduct" class="btn btn-outline-secondary">
                         <ion-icon name="search-outline"></ion-icon>
                     </a>
-                </form>
+                </div>
             </div>
         </nav>
 
