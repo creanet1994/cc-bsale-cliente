@@ -5,7 +5,13 @@ $(document).ready(function() {
     const listaCards = document.getElementById("cards-Products");
     const templateLi = document.getElementById("template-li").content;
     const templateCards = document.getElementById("template-cards").content;
-    const fragment = document.createDocumentFragment()
+    const fragment = document.createDocumentFragment();
+
+    $("form").keypress(function(e) {
+        if (e.which == 13) {
+            return false;
+        }
+    });
 
     // Controla la opción de ocultar el sidebar - alternativo
     $('#sidebarCollapse').click(function() {
@@ -18,7 +24,11 @@ $(document).ready(function() {
     // A la escucha del click que activa la funcion de busqueda de productos por categoria
     $('#btnProduct').click(function() {
         let key = $('#inputProduct').val()
-        fetchProducts({ keyword: key })
+        if (!key) {
+            alert('Ingrese caracteres para ejecutar busqueda')
+        } else {
+            fetchProducts({ keyword: key })
+        }
     });
 
     // Formatea los numeros a pesos
@@ -41,7 +51,7 @@ $(document).ready(function() {
                 fetchProducts({ id: id })
             })
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -50,7 +60,7 @@ $(document).ready(function() {
         $("#cards-Products").empty()
         let url
         if (id != null) { // Por categoría
-            document.getElementById('formSearch').reset() // Se limpia el Dom antes de "pintar" los nuevos productos seleccionados
+            // Se limpia el Dom antes de "pintar" los nuevos productos seleccionados
             url = `https://carrera-bsale-api.herokuapp.com/product.php?category=${ id }`
         } else { // Por nombre
             url = `https://carrera-bsale-api.herokuapp.com/product.php?search=${ keyword }`
@@ -59,7 +69,9 @@ $(document).ready(function() {
             const res = await fetch(url)
             const data = await res.json()
             insertProducts(data);
+            document.getElementById('formSearch').reset()
         } catch (error) {
+            alert("No hay productos asociado a la busqueda")
             console.log(error)
         }
     }

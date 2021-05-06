@@ -27,9 +27,9 @@
                 </a>
                 <form id="formSearch" class="d-flex">
                     <input id="inputProduct" class="form-control me-2" type="Buscar" placeholder="Buscar" aria-label="Buscar">
-                    <button id="btnProduct" class="btn btn-outline-secondary" type="submit">
+                    <a id="btnProduct" class="btn btn-outline-secondary">
                         <ion-icon name="search-outline"></ion-icon>
-                    </button>
+                    </a>
                 </form>
             </div>
         </nav>
