@@ -52,10 +52,11 @@ $(document).ready(function() {
             insertCategory(data);
             //Bloque a la "escucha" de un click para activar la función de busqueda de productos por categoria
             $('.sidebar_a').click(function() {
-                document.getElementById('formSearch').reset()
+
                 let id = $(this).attr('id')
                 id = id.substr(3)
                 fetchProducts({ id: id })
+                $('#inputProduct').val('')
             })
         } catch (error) {
             console.log(error);
@@ -65,6 +66,7 @@ $(document).ready(function() {
     // Petición asincrona que retorna los productos disponibles dependiendo de la opción por categoria o por nombre
     const fetchProducts = async({ id, keyword }) => {
         $("#cards-Products").empty()
+
         let url
         if (id != null) { // Por categoría
             // Se limpia el Dom antes de "pintar" los nuevos productos seleccionados
